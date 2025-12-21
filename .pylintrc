@@ -1,0 +1,7 @@
+[main]
+disable=
+    import-error,
+    invalid-name
+
+[format]
+max-line-length=120

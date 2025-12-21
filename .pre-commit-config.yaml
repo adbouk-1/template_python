@@ -1,0 +1,66 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-toml
+      - id: check-yaml
+      - id: sort-simple-yaml
+      - id: check-json
+      - id: pretty-format-json
+        args: [--autofix, --no-sort-keys ]
+      - id: check-added-large-files
+        args: [--maxkb=51200]
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: detect-private-key
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        args: [--write-changes]
+
+        files: \.(py|sh|json|yml|yaml|md)$
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.8
+    hooks:
+    -   id: ruff
+        args: [--fix]
+    -   id: ruff-format
+
+  - repo: https://github.com/pylint-dev/pylint
+    rev: v3.2.5
+    hooks:
+    -   id: pylint
+        args: [--rcfile=.pylintrc]
+        # The `python` language_version is needed to avoid a Pylint issue
+        # where it can't find the python executable in the pre-commit env.
+        language_version: python3
+
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.13.1-beta
+    hooks:
+      - id: hadolint
+        name: Lint Dockerfiles
+        description: Runs hadolint to lint Dockerfiles
+        entry: hadolint
+        language: system
+        types: ["dockerfile"]
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    # uv version.
+    rev: 0.7.2
+
+    hooks:
+      # Update the uv lockfile
+      - id: uv-lock
+
+ci:
+  autofix_commit_msg: 🎨 [pre-commit.ci] Auto format from pre-commit.com hooks
+  # Settings for the https://pre-commit.ci/ continuous integration service
+  autofix_prs: true
+  autoupdate_commit_msg: ⬆ [pre-commit.ci] pre-commit autoupdate
+  autoupdate_schedule: monthly

@@ -1,0 +1,28 @@
+[project]
+name = "template"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "loguru>=0.7.2",
+    "sentry-sdk[fastapi]>=2.10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.4.2",
+]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+# A sensible default set of rules
+select = ["E", "F", "W", "I"]
+ignore = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
