@@ -29,7 +29,7 @@ python3 -m pip install --user uv
 
 ```bash
 # Install from the lockfile (preferred)
-uv install
+uv sync
 
 # If you need to create/update the lockfile after changing pyproject.toml:
 uv lock
